@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>API Reference</title>
+    <title>PartsMatch Developer API Reference</title>
 
     <style>
       .highlight table td { padding: 5px; }
@@ -201,7 +201,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;javascript&quot;]">
+  <body class="index" data-languages="[&quot;json-doc&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -211,10 +211,7 @@
     <div class="toc-wrapper">
       <img src="images/logo.png" class="logo" alt="Logo" />
         <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
-              <a href="#" data-language-name="javascript">javascript</a>
+              <a href="#" data-language-name="json-doc">json-doc</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -228,21 +225,15 @@
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
           </li>
           <li>
-            <a href="#kittens" class="toc-h1 toc-link" data-title="Kittens">Kittens</a>
+            <a href="#enquiries" class="toc-h1 toc-link" data-title="Enquiries">Enquiries</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-all-kittens" class="toc-h2 toc-link" data-title="Get All Kittens">Get All Kittens</a>
+                    <a href="#submit-new-enquiry" class="toc-h2 toc-link" data-title="Submit New Enquiry">Submit New Enquiry</a>
                   </li>
                   <li>
-                    <a href="#get-a-specific-kitten" class="toc-h2 toc-link" data-title="Get a Specific Kitten">Get a Specific Kitten</a>
-                  </li>
-                  <li>
-                    <a href="#delete-a-specific-kitten" class="toc-h2 toc-link" data-title="Delete a Specific Kitten">Delete a Specific Kitten</a>
+                    <a href="#get-enquiry-status" class="toc-h2 toc-link" data-title="Get Enquiry Status">Get Enquiry Status</a>
                   </li>
               </ul>
-          </li>
-          <li>
-            <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
           </li>
       </ul>
         <ul class="toc-footer">
@@ -254,133 +245,297 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+<p>Welcome to the PartsMatch API! You can use our API to access various PartsMatch API endpoints, allowing you to integrate third party products with the PartsMatch system.</p>
 
-<p>We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
-
-<p>This example API documentation page was created with <a href="https://github.com/lord/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&#39;s documentation.</p>
+<p>Our API is JSON based, you can view code examples and responses in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right where available.</p>
 <h1 id='authentication'>Authentication</h1>
 <blockquote>
 <p>To authorize, use this code:</p>
 </blockquote>
-<pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-</code></pre>
-<blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
-</blockquote>
-
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
-
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code>Authorization: meowmeowmeow</code></p>
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">kittens</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">();</span>
-</code></pre>
+<pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user@partsmatch.com.au"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password123"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
+<pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tokenExpires"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ISO encoded date string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user id"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint retrieves all kittens.</p>
+<blockquote>
+<p>The above command returns JSON error response like this:</p>
+</blockquote>
+<pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error-code"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Human readable error string"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Once you have been issued a PartsMatch Developer Token, you can make calls to the API. You will need to include your developer token in the header of all requests to the API in the following format:</p>
+
+<p><code>PartsMatch: {devToken}</code></p>
+
+<p>PartsMatch uses API tokens allow access to the API at a user level. You can request a token for a user by sending the username and password to the endpoint in the example. All API requets to the server require this token to be passed in the header in the following format:</p>
+
+<p><code>Authorization: Bearer {token}</code></p>
+
+<aside class="notice">
+You must replace <code>{token}</code> with the API key returned from this call for any future calls as this user.
+</aside>
+<h1 id='enquiries'>Enquiries</h1>
+<p>PartsMatch Member&#39;s create Enquiries to source and search for parts. The Enquiries API allows 3rd party applications to submit enquiries on the members behalf.</p>
+
+<aside class="notice">
+The Enquiries API is only available to a <code>Member</code> user. Calling this API as a <code>Supplier</code> will yield an error response.
+</aside>
+<h2 id='submit-new-enquiry'>Submit New Enquiry</h2>
+<blockquote>
+<p>To submit an enquiry, use this code:</p>
+</blockquote>
+<pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"referenceNo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Additional Notes Here"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"vehicle"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"year"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"make"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mazda"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"model"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CX-5"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"colour"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Red"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"vin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JM00324734238974234"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"L/H/F Door"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"partNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AW123123123"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"listPrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">150.43</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bonnet"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"partNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AW432432432"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"listPrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">440.29</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json-doc tab-json-doc"><code><span class="w">  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"enquiryId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aADSFas3wesdC3"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"enquiryUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://app.partsmatch.com.au/enquiries/aADSFas3wesdC3"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>The above command returns JSON error response like this:</p>
+</blockquote>
+<pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error-code"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Human readable error string"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This generates a new Enquiry for a <em>Member</em> of PartsMatch.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET http://example.com/api/kittens</code></p>
-<h3 id='query-parameters'>Query Parameters</h3>
+<p><code>POST https://api.partsmatch.com.au/api/enquiries</code></p>
+<h3 id='enquiry-parameters'>Enquiry Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
-<th>Default</th>
+<th>Type</th>
+<th>Required</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
+<td>referenceNo</td>
+<td>String</td>
+<td>true</td>
+<td>Unique reference number for member for this enquiry.</td>
 </tr>
 <tr>
-<td>available</td>
+<td>{ vehicle }</td>
+<td>Object</td>
 <td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
+<td>Object of the vehicle details for this enquiry.</td>
+</tr>
+<tr>
+<td>[ { items } ]</td>
+<td>Array</td>
+<td>true</td>
+<td>Object array of items for this enquiry.</td>
+</tr>
+<tr>
+<td>notes</td>
+<td>String</td>
+<td>false</td>
+<td>Addtional notes for Enquiry.</td>
+</tr>
+</tbody></table>
+<h3 id='vehicle-parameters'>Vehicle Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>year</td>
+<td>String</td>
+<td>true</td>
+<td>Year of vehicle.</td>
+</tr>
+<tr>
+<td>make</td>
+<td>String</td>
+<td>true</td>
+<td>Make of vehicle.</td>
+</tr>
+<tr>
+<td>model</td>
+<td>String</td>
+<td>true</td>
+<td>Model of vehicle.</td>
+</tr>
+<tr>
+<td>badge</td>
+<td>String</td>
+<td>false</td>
+<td>Badge of vehicle.</td>
+</tr>
+<tr>
+<td>vin</td>
+<td>String</td>
+<td>false</td>
+<td>VIN of vehicle.</td>
+</tr>
+<tr>
+<td>colour</td>
+<td>String</td>
+<td>false</td>
+<td>Colour of vehicle.</td>
+</tr>
+<tr>
+<td>trans</td>
+<td>String</td>
+<td>false</td>
+<td>Transmission of vehicle.</td>
+</tr>
+<tr>
+<td>engine</td>
+<td>String</td>
+<td>false</td>
+<td>Engine of vehicle.</td>
+</tr>
+<tr>
+<td>regoNo</td>
+<td>String</td>
+<td>false</td>
+<td>Registration Number of vehicle.</td>
+</tr>
+</tbody></table>
+<h3 id='items-parameters'>Items Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>description</td>
+<td>String</td>
+<td>true</td>
+<td>Description of item.</td>
+</tr>
+<tr>
+<td>partNumber</td>
+<td>String</td>
+<td>false</td>
+<td>Genuine part number of item.</td>
+</tr>
+<tr>
+<td>referenceNo</td>
+<td>String</td>
+<td>false</td>
+<td>Internal Reference Number of item.</td>
+</tr>
+<tr>
+<td>listPrice</td>
+<td>Decimal</td>
+<td>false</td>
+<td>List Price of item.</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>Integer</td>
+<td>false</td>
+<td>Quantity of item <em>(Default = 1)</em>.</td>
+</tr>
+<tr>
+<td>suppliementary</td>
+<td>Boolean</td>
+<td>true</td>
+<td>Flag if part is supplementary part of order <em>(default = False)</em>.</td>
+</tr>
+<tr>
+<td>notes</td>
+<td>String</td>
+<td>false</td>
+<td>Addtional notes for Item.</td>
 </tr>
 </tbody></table>
 
 <aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+On response you can direct the user to the <code>enquiryUrl</code> in thier browser to complete the PartsMatch enquiry.
 </aside>
-<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</code></pre>
+<h2 id='get-enquiry-status'>Get Enquiry Status</h2>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+<pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"referenceNo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"L/H/F Door"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"partNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AW123123123"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"referenceNo"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"quotedPrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">100.82</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"supplier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Some Cheap Supplier"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"ordered"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"quoted"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"orderDate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"receivedDate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"expectedDate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"orderTracking"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bonnet"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"partNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AW432432432"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"referenceNo"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"quotedPrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">375.39</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"supplier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Another Cheap Supplier"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"ordered"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"quoted"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ax338fkDASFsdfDFE"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"orderDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-06-29 11:34:00"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"receivedDate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"expectedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ASAP"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"orderTracking"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Courier AM"</span><span class="p">,</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint retrieves a specific kitten.</p>
+<p>This endpoint retrieves the current status of an enquiry and its items, including current selected item supplier, pricing and order status details.</p>
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+<aside class="notice">You can specify the <code>enquiryId</code> from the New Enquiry endpoint, or the users internal <code>referenceNo</code> that was used when the enquiry was created to retrieve details from this endpoint</aside>
 <h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
+<p><code>GET https://api.partsmatch.com.au/api/enquiries/&lt;ID&gt;</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -390,114 +545,14 @@ Remember — a happy kitten is an authenticated kitten!
 </thead><tbody>
 <tr>
 <td>ID</td>
-<td>The ID of the kitten to retrieve</td>
-</tr>
-</tbody></table>
-<h2 id='delete-a-specific-kitten'>Delete a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -X DELETE
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"deleted"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">":("</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This endpoint deletes a specific kitten.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
-<p><code>DELETE http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters-2'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>ID</td>
-<td>The ID of the kitten to delete</td>
-</tr>
-</tbody></table>
-<h1 id='errors'>Errors</h1>
-<aside class="notice">
-This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
-</aside>
-
-<p>The Kittn API uses the following error codes:</p>
-
-<table><thead>
-<tr>
-<th>Error Code</th>
-<th>Meaning</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>400</td>
-<td>Bad Request -- Your request is invalid.</td>
-</tr>
-<tr>
-<td>401</td>
-<td>Unauthorized -- Your API key is wrong.</td>
-</tr>
-<tr>
-<td>403</td>
-<td>Forbidden -- The kitten requested is hidden for administrators only.</td>
-</tr>
-<tr>
-<td>404</td>
-<td>Not Found -- The specified kitten could not be found.</td>
-</tr>
-<tr>
-<td>405</td>
-<td>Method Not Allowed -- You tried to access a kitten with an invalid method.</td>
-</tr>
-<tr>
-<td>406</td>
-<td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone -- The kitten requested has been removed from our servers.</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&#39;m a teapot.</td>
-</tr>
-<tr>
-<td>429</td>
-<td>Too Many Requests -- You&#39;re requesting too many kittens! Slow down!</td>
-</tr>
-<tr>
-<td>500</td>
-<td>Internal Server Error -- We had a problem with our server. Try again later.</td>
-</tr>
-<tr>
-<td>503</td>
-<td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
+<td>The <code>enquiryId</code> or <code>referenceNo</code> of the Enquiry to retrieve <em>(estimateId can be found in the New Enquiry endpoint)</em></td>
 </tr>
 </tbody></table>
 
       </div>
       <div class="dark-box">
           <div class="lang-selector">
-                <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
-                <a href="#" data-language-name="javascript">javascript</a>
+                <a href="#" data-language-name="json-doc">json-doc</a>
           </div>
       </div>
     </div>
