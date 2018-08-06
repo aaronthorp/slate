@@ -201,7 +201,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;json-doc&quot;]">
+  <body class="index" data-languages="[&quot;json&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -211,7 +211,7 @@
     <div class="toc-wrapper">
       <img src="images/logo.png" class="logo" alt="Logo" />
         <div class="lang-selector">
-              <a href="#" data-language-name="json-doc">json-doc</a>
+              <a href="#" data-language-name="json">json</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -353,7 +353,7 @@
           </li>
       </ul>
         <ul class="toc-footer">
-            <li><a href='mailto:contact@partsmatch.com.au?subject="Developer API Key Request"'>Sign Up for a Developer Key</a></li>
+            <li><a href='mailto:contact@partsmatch.com.au?subject="Developer API Key Request"'>Request a Developer Key</a></li>
             <li><a href='https://github.com/lord/slate'>Documentation Powered by Slate</a></li>
         </ul>
     </div>
@@ -369,6 +369,14 @@
 If examples are not available for a specific endpoint on the right hand side, this endpoint may not currently be available. If an endpoint is unavailable for any reason you will see an error response.
 </aside>
 <h1 id='making-calls'>Making Calls</h1><h2 id='developer-token'>Developer Token</h2>
+<blockquote>
+<p>Invalid/Missing Developer Token Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"error"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid Developer Token."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 <p>Once you have been issued a PartsMatch Developer Token, you can make calls to the API. You will need to include your developer token in the header of all requests to the API in the following format:</p>
 
 <p><code>PartsMatch: {devToken}</code></p>
@@ -382,6 +390,14 @@ PartsMatch: {devToken}
 </code></pre>
 <p>The API communicates in JSON data, please ensure the following headers are used for all calls to ensure there are no issues with communications. For some calls you may also need to include the <code>Authorization</code> header after logging in to access user specific information.</p>
 <h2 id='authorization-token'>Authorization Token</h2>
+<blockquote>
+<p>Invalid/Missing Authorization Token Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"error"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid Token."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 <p>PartsMatch uses API tokens allow access to the API at a user level. You can request a token for a user by sending the username and password to the endpoint in the example. All API requets to the server require this token to be passed in the header in the following format:</p>
 
 <p><code>Authorization: Bearer {token}</code></p>
@@ -393,7 +409,7 @@ You must replace <code>{token}</code> with the API key returned from a "User Log
 <blockquote>
 <p>To authorize, use this code:</p>
 </blockquote>
-<pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user@partsmatch.com.au"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password123"</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -401,7 +417,7 @@ You must replace <code>{token}</code> with the API key returned from a "User Log
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
-<pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"tokenExpires"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ISO encoded date string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user id"</span><span class="w">
@@ -410,7 +426,7 @@ You must replace <code>{token}</code> with the API key returned from a "User Log
 <blockquote>
 <p>The above command returns JSON error response like this:</p>
 </blockquote>
-<pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error-code"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Human readable error string"</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -428,7 +444,7 @@ The Enquiries API is only available to a <code>Member</code> user. Calling this 
 <blockquote>
 <p>To submit an enquiry, use this code:</p>
 </blockquote>
-<pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"referenceNo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ABC123"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Additional Notes Here"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"photos"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -464,7 +480,7 @@ The Enquiries API is only available to a <code>Member</code> user. Calling this 
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
-<pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://app.partsmatch.com.au/estimates/view/KJ35KLqwQnMSabfew"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"KJ35KLqwQnMSabfew"</span><span class="w">
@@ -473,13 +489,13 @@ The Enquiries API is only available to a <code>Member</code> user. Calling this 
 <blockquote>
 <p>The above command returns JSON error response like this:</p>
 </blockquote>
-<pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
   </span><span class="s2">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="c1">...</span><span class="w">
+    </span><span class="err">...</span><span class="w">
     </span><span class="s2">"Duplicate Reference Number"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"Required Field: {field}"</span><span class="p">,</span><span class="w">
-    </span><span class="c1">...</span><span class="w">
+    </span><span class="err">...</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -494,7 +510,7 @@ On response you can direct the user to the <code>url</code> parameter in thier b
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
-<pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"referenceNo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
@@ -733,7 +749,7 @@ All webhooks are required to return a <code>200</code> response to flag as succe
       </div>
       <div class="dark-box">
           <div class="lang-selector">
-                <a href="#" data-language-name="json-doc">json-doc</a>
+                <a href="#" data-language-name="json">json</a>
           </div>
       </div>
     </div>
