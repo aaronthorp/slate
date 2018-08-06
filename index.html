@@ -298,6 +298,9 @@ The Enquiries API is only available to a <code>Member</code> user. Calling this 
 <pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"referenceNo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Additional Notes Here"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"photos"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
     </span><span class="s2">"vehicle"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"year"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"make"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mazda"</span><span class="p">,</span><span class="w">
@@ -322,18 +325,23 @@ The Enquiries API is only available to a <code>Member</code> user. Calling this 
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
-<pre class="highlight json-doc tab-json-doc"><code><span class="w">  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"enquiryId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aADSFas3wesdC3"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"enquiryUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://app.partsmatch.com.au/enquiries/aADSFas3wesdC3"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+<pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://app.partsmatch.com.au/estimates/view/KJ35KLqwQnMSabfew"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"KJ35KLqwQnMSabfew"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
 <p>The above command returns JSON error response like this:</p>
 </blockquote>
 <pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error-code"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Human readable error string"</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="c1">...</span><span class="w">
+    </span><span class="s2">"Duplicate Reference Number"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Field Missing: {field}"</span><span class="p">,</span><span class="w">
+    </span><span class="c1">...</span><span class="w">
+  </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This generates a new Enquiry for a <em>Member</em> of PartsMatch.</p>
